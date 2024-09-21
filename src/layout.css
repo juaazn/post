@@ -1,9 +1,11 @@
 :root {
   --font-title: 'Pacifico';
   --font-buttom: 'Poppins Medium';
+  --font-size-error: .8rem;
 
 
   --buttom-primary: olivedrab;
+  --color-error: brown;
   --buttom-complement: rgb(29, 29, 29);
 }
 
