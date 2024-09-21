@@ -58,3 +58,20 @@
   border-radius: .5rem;
   border: none;
 }
+
+.spinner {
+  width: 17rem;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.error_input {
+  font-size: var(--font-size-error);
+  color: var(--color-error);
+}
+
+.successful {
+  font-size: var(--font-size-error);
+  color: var(--color-successful);
+}
