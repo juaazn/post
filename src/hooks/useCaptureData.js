@@ -1,11 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { register } from '../redux/auth/authSlice'
+import { STATUS } from '../utils/contants.js'
 
 export default function useCaptureData () {
   const navigate = useNavigate()
   const dispatch = useDispatch()
+  const { status } = useSelector(state =>  state.auth)
   const [data, setData] = useState({ name: '', email: '', password: '', age: 0 })
   const initialState = {
     name: '',
@@ -26,10 +28,13 @@ export default function useCaptureData () {
     event.preventDefault()
     dispatch(register(data))
     clearState()
-    setTimeout(() => {
-      navigate('/login')
-    }, 500)
   }
+
+  useEffect(() => {
+    if (status === STATUS.PENDING) {
+      navigate('/login') 
+    }
+  }, [status])
 
   return {
     data,
