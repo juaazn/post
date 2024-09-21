@@ -5,7 +5,7 @@ import useCaptureData from '../hooks/useCaptureData'
 
 export default function Login () {
   const { data, handleInputChange, handleSubmit } = useCaptureData()
-  const { loading, error } = useSelector(state => state.auth)
+  const { user, loading, error } = useSelector(state => state.auth)
 
   return (
     <Layout>
@@ -20,8 +20,12 @@ export default function Login () {
           <input type="email" value={data.email} name='email' onChange={handleInputChange} placeholder='Email' />
           <input type="password" value={data.password} name='password' onChange={handleInputChange} placeholder='Password' />
           <input type="number" value={data.age === 0 ? '' : data.age} name='age' onChange={handleInputChange} placeholder='Age' />
-          <span className={style.error_container}>
-            {error ? <p className={style.error_input}>{error}</p> : null }
+          <span className={style.spinner}>
+            {error ? 
+              <p className={style.error_input}>{error}</p> : null }
+          </span>
+          <span className={style.spinner}>
+            {loading ? <p className={style.successful}>😁 {user.message || 'Register successful'}</p> : null}
           </span>
           <button className={style.buttom} type='submit'>{ loading ? 'Sending... ' : 'Send' }</button>
         </form>
