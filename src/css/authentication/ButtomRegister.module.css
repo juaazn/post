@@ -1,0 +1,11 @@
+.buttom {
+  width: 17rem;
+  height: 3rem;
+  background-color: var(--buttom-complement);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-family: var(--font-buttom);
+  border-radius: .5rem;
+}

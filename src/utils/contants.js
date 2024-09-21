@@ -1,0 +1,1 @@
+export const BASE_URL_API = 'https://mongodb-social-media.vercel.app/api'

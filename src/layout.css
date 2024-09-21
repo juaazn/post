@@ -1,0 +1,76 @@
+:root {
+  --font-title: 'Pacifico';
+  --font-buttom: 'Poppins Medium';
+
+
+  --buttom-primary: olivedrab;
+  --buttom-complement: rgb(29, 29, 29);
+}
+
+@font-face {
+  font-family: 'Pacifico';
+  src:
+    url("/fonts/Pacifico-Regular.woff") format("woff"),
+    url("/fonts/Pacifico-Regular.ttf") format("ttf");
+}
+
+@font-face {
+  font-family: "Poppins Light";
+  src: 
+    url("/fonts/Poppins-Light.woff") format("woff"),
+    url("/fonts/Poppins-Light.ttf") format("tff");
+}
+
+@font-face {
+  font-family: "Poppins Medium";
+  src: 
+    url("/fonts/Poppins-Medium.woff") format("woff"),
+    url("/fonts/Poppins-Medium.ttf") format("tff");
+}
+
+@font-face {
+  font-family: "Poppins SemiBold";
+  src: 
+    url("/fonts/Poppins-SemiBold.woff") format("woff"),
+    url("/fonts/Poppins-SemiBold.ttf") format("tff");
+}
+
+body {
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  padding: 0;
+}
+
+p {
+  margin: 0;
+}
+
+picture {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+a {
+  margin: 0;
+  padding: 0;
+  color: initial;
+  display: block;
+  text-decoration: none;
+}
+
+img {
+  width: 100%;
+}
+
+p {
+  font-family: 'Poppins Light';
+}
