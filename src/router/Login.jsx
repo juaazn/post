@@ -1,3 +1,4 @@
+import { useSelector } from 'react-redux'
 import Layout from '../layout/Laoyout'
 import ButtonLogin from '../components/authentication/ButtomCreateUser'
 import style from '../css/authentication/Login.module.css'
@@ -5,6 +6,7 @@ import useCaptureData from '../hooks/useCaptureData'
 
 export default function Login () {
   const { data, handleInputChange, handleSubmit } = useCaptureData()
+  const { loading, error } = useSelector(state => state.auth)
 
   return (
     <Layout>  
@@ -17,7 +19,7 @@ export default function Login () {
         <form className={style.form} onSubmit={handleSubmit}>
           <input value={data.email} onChange={handleInputChange} name='email' type="email" placeholder='Email' />
           <input value={data.password} onChange={handleInputChange} name='password' type="password" placeholder='Contraseña' />
-          <button className={style.buttom} type='submit'>Log In</button>
+          <button className={style.buttom} type='submit'>{loading ? 'logging in' : 'Log In'}</button>
         </form>
 
         <ButtonLogin />
