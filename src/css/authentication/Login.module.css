@@ -61,7 +61,7 @@
 
 .spinner {
   width: 17rem;
-  height: auto;
+  height: .5rem;
   display: flex;
   justify-content: flex-start;
 }
