@@ -1,20 +1,17 @@
 import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { register } from '../redux/auth/authSlice'
-import { STATUS } from '../utils/contants.js'
+import { register, login, resetStatusFulfilled } from '../redux/auth/authSlice'
+import { useNavigate } from 'react-router-dom'
+import { STATUS } from '../utils/contants'
 
-export default function useCaptureData () {
-  const navigate = useNavigate()
+export default function useCaptureData (authAction = 'register') {
   const dispatch = useDispatch()
-  const { status } = useSelector(state =>  state.auth)
+  const { status } = useSelector(state => state.auth)
   const [data, setData] = useState({ name: '', email: '', password: '', age: 0 })
-  const initialState = {
-    name: '',
-    email: '',
-    password: '',
-    age: 0
-  }
+  const navigate = useNavigate()
+  const initialState = authAction === 'register' 
+    ? {  name: '', email: '', password: '', age: 0} 
+    : { email: '', password: '' }
 
   const clearState = () => {
     setData({ ...initialState })
@@ -24,17 +21,26 @@ export default function useCaptureData () {
     setData({ ...data, [event.target.name]: event.target.value })
   }
 
-  const handleSubmit= (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    dispatch(register(data))
-    clearState()
+    if (authAction === 'register') {
+      await dispatch(register(data))
+    } else if (authAction === 'login') {
+      await dispatch(login(data))
+    }
   }
 
   useEffect(() => {
-    if (status === STATUS.PENDING) {
-      navigate('/login') 
+    if (status === STATUS.FULFILLED) {
+      if (authAction === 'register') {
+        navigate('/login');
+      } else if (authAction === 'login') {
+        navigate('/');
+      }
+      dispatch(resetStatusFulfilled())
+      clearState()
     }
-  }, [status])
+  }, [status, authAction, navigate, dispatch])
 
   return {
     data,
