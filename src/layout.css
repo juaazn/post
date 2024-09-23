@@ -73,10 +73,22 @@ a {
   text-decoration: none;
 }
 
+button {
+  border: none;
+  background: none;
+}
+
 img {
   width: 100%;
 }
 
 p {
   font-family: 'Poppins Light';
+}
+
+dialog {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0;
 }
