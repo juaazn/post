@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { BASE_URL_API, STATUS } from '../../utils/contants.js'
+import { BASE_URL_API, STATUS, DATA_USER, TOKEN } from '../../utils/contants.js'
 
 const initialState = {
-  user: null,
-  token: null,
+  user: null ?? DATA_USER,
+  token: null ?? TOKEN,
   loading: false,
   error: null,
   status: null,
@@ -26,7 +26,7 @@ export const login = createAsyncThunk('@auth/login', async (userData, ThunkApi) 
     
     if (response.data) {
       localStorage.setItem('user', JSON.stringify(response.data.user))
-      localStorage.setItem('token', JSON.stringify(response.data.token))
+      localStorage.setItem('token', JSON.stringify(response.data.user.tokens[0]))
     }
 
     return response.data
@@ -36,9 +36,13 @@ export const login = createAsyncThunk('@auth/login', async (userData, ThunkApi) 
   }
 })
 
-export const logOut = createAsyncThunk('@auth/logout', async (userId, ThunkApi) => {
+export const logOut = createAsyncThunk('@auth/logout', async (userData, ThunkApi) => {
   try {
-    const response = await axios.delete(`${BASE_URL_API}/user/logout/${userId}`)
+    const { _id, token } = userData
+    const response = await axios.delete(`${BASE_URL_API}/user/logout/${_id}`, {
+      headers: {
+        authorization: token
+      }})
     return response.data
   } catch (error) {
     const errorApi = error.response.data
@@ -74,7 +78,7 @@ export const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.status = STATUS.FULFILLED
         state.user = action.payload
-        state.token = action.payload.token
+        state.token = action.payload.user.tokens
         state.loading = false
       })
       .addCase(login.pending, (state) => {
@@ -86,6 +90,21 @@ export const authSlice = createSlice({
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload || 'Please complete all fields on the form'
+      })
+      .addCase(logOut.fulfilled, (state) => {
+        state.status = STATUS.FULFILLED
+        state.user = localStorage.removeItem('user')
+        state.token = localStorage.removeItem('token')
+        state.loading = false
+      })
+      .addCase(logOut.pending, (state) => {
+        state.status = STATUS.PENDING,
+        state.loading = true
+      })
+      .addCase(logOut.rejected, (state, action) => {
+        state.status = STATUS.REJECTED
+        state.loading = false
+        state.error = action.payload || '❌ error'
       })
   }
 })
