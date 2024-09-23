@@ -5,3 +5,21 @@
   border: none;
   padding: 2rem;
 }
+
+.profile {
+  width: 3.4rem;
+  height: 3.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.image {
+  width: 100%;
+  border-radius: 50%;
+  object-fit: contain;
+}
