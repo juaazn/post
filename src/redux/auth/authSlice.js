@@ -36,6 +36,16 @@ export const login = createAsyncThunk('@auth/login', async (userData, ThunkApi) 
   }
 })
 
+export const logOut = createAsyncThunk('@auth/logout', async (userId, ThunkApi) => {
+  try {
+    const response = await axios.delete(`${BASE_URL_API}/user/logout/${userId}`)
+    return response.data
+  } catch (error) {
+    const errorApi = error.response.data
+    return ThunkApi.rejectWithValue(errorApi)
+  }
+}) 
+
 export const authSlice = createSlice({
   name: 'auth',
   initialState: initialState,
