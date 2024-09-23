@@ -23,9 +23,12 @@ export default function MenuHamburguer () {
         <li>
           <Link to='/profile'>Profile</Link>
         </li>
+        <li>
+          <button type='button'>Log out</button>
+        </li>
       </ul>
     </dialog>
-    <button type='button' onClick={handleOpne}>Profile</button>
+    <button className={style.profile} type='button' onClick={handleOpne}><img className={style.image} src='/profile.webp' alt='Image example proflie' /></button>
     </>
   )
 }
