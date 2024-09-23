@@ -3,8 +3,8 @@ import axios from 'axios'
 import { BASE_URL_API, STATUS, DATA_USER, TOKEN } from '../../utils/contants.js'
 
 const initialState = {
-  user: null ?? DATA_USER,
-  token: null ?? TOKEN,
+  user: DATA_USER || null,
+  token: TOKEN || null,
   loading: false,
   error: null,
   status: null,
@@ -49,6 +49,22 @@ export const logOut = createAsyncThunk('@auth/logout', async (userData, ThunkApi
     return ThunkApi.rejectWithValue(errorApi)
   }
 }) 
+
+export const uploadImage = createAsyncThunk('@auth/uploadimage', async (tokenUser, ThunkApi) => {
+  try {
+    const { token } = tokenUser
+
+    const response = await axios.post(`${BASE_URL_API}/cloudinary/image/`, {
+      headers: {
+        authorization: token
+      }
+    })
+    return response.data
+  } catch (error) {
+    const errorApi = error.response.data
+    return ThunkApi.rejectWithValue(errorApi)
+  }
+})
 
 export const authSlice = createSlice({
   name: 'auth',
@@ -105,6 +121,10 @@ export const authSlice = createSlice({
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload || '❌ error'
+      })
+      .addCase(uploadImage.fulfilled, (state) => {
+        state.fulfilled = STATUS.FULFILLED
+        state.loading = false
       })
   }
 })
