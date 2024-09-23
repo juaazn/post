@@ -17,3 +17,15 @@
   justify-content: flex-start;
   align-items: center;
 }
+
+.buttom_login {
+  width: 5.5rem;
+  height: 2.3rem;
+  background-color: var(--buttom-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: .5rem;
+  color: var(--color-buttom-primary);
+  font-family: var(--font-buttom);
+}
