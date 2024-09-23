@@ -1,6 +1,7 @@
-import { createSlice, asyncThunkCreator } from '@reduxjs/toolkit'
+import { createSlice } from '@reduxjs/toolkit'
 import axios from 'axios'
 import { BASE_URL_API, STATUS } from '../../utils/contants'
+import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
   post: null,
@@ -9,7 +10,7 @@ const initialState = {
   status: null,
 }
 
-const getPost = asyncThunkCreator('@post/get', async (ThunkApi) => {
+export const getPost = createAsyncThunk('@post/get', async (ThunkApi) => {
   try {
     const response = await axios.get(`${BASE_URL_API}/post/getAll`)
     return response.data
@@ -35,7 +36,7 @@ export const postSlice = createSlice({
         state.loading = true
         state.error = null
       })
-      .addCase(register.rejected, (state, action) => {
+      .addCase(getPost.rejected, (state, action) => {
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload || 'Please complete all fields on the form'
