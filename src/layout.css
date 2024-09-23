@@ -1,8 +1,11 @@
 :root {
   --font-title: 'Pacifico';
+  --font-title-secundary: 'Poppins SemiBold';
   --font-buttom: 'Poppins Medium';
   --font-size-error: .8rem;
+  --font-size-title-post: 1.2rem;
 
+  --color-background-post: #f2f2f2;
   --color-buttom-primary: rgb(229, 229, 229);
   --buttom-primary: olivedrab;
   --color-successful: green;
