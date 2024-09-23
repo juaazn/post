@@ -6,7 +6,6 @@ export default function Home () {
   return (
     <>
       <Layout>
-        <h1 className={style.title}>Ultimos post</h1>
         <Posts />
       </Layout>
     </>
