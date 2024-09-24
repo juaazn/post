@@ -43,6 +43,8 @@ export const logOut = createAsyncThunk('@auth/logout', async (userData, ThunkApi
       headers: {
         authorization: token
       }})
+
+    localStorage.clear()
     return response.data
   } catch (error) {
     const errorApi = error.response.data
@@ -93,8 +95,8 @@ export const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.status = STATUS.FULFILLED
-        state.user = action.payload
-        state.token = action.payload.user.tokens
+        state.user = action.payload.user
+        state.token = action.payload.user.tokens[0]
         state.loading = false
       })
       .addCase(login.pending, (state) => {
@@ -109,8 +111,8 @@ export const authSlice = createSlice({
       })
       .addCase(logOut.fulfilled, (state) => {
         state.status = STATUS.FULFILLED
-        state.user = localStorage.removeItem('user')
-        state.token = localStorage.removeItem('token')
+        state.user = null
+        state.token = null
         state.loading = false
       })
       .addCase(logOut.pending, (state) => {
