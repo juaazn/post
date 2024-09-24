@@ -78,6 +78,12 @@ button {
   background: none;
 }
 
+input {
+  appearance: none;
+  border: none;
+  background: none;
+}
+
 img {
   width: 100%;
 }
