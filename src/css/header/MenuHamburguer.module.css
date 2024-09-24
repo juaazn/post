@@ -1,9 +1,29 @@
-.open_dialog {
-  width: 13rem;
+.dialog {
+  min-width: 100svw;
   min-height: 100svh;
+  position: relative;
+}
+
+.open_dialog {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-end; 
+}
+
+.nav {
+  width: 14rem;
+  height: 100%;
+  background-color: var(--color-background-post);
+  position: absolute;
+  width: 13rem;
   margin: 0;
   border: none;
   padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .profile {
@@ -19,7 +39,60 @@
 }
 
 .image {
-  width: 100%;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
+}
+
+.image_menu {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.flex_clouse_buttom {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.close_button {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.button_logout {
+  width: 12rem;
+  height: 2rem;
+  color: var(--color-buttom-primary);
+  background-color: var(--buttom-complement);
+  border-radius: .5rem;
+  font-size: var(--font-buttom);
+  margin: 1rem 0;
+}
+
+.container_photo {
+  position: relative;
+}
+
+.add_photo {
+  position: absolute;
+  width: 2.3rem;
+  height: 2.3rem;
+  padding: .2rem;
+  background-color: rgba(255, 255, 255, 0.923);
+  object-fit: cover;
+  right: 0;
+  bottom: .1rem;
+  border-radius: 50%;
+
+  & img {
+    object-fit: cover;
+  }
+}
+
+input[type="file"] {
+  display: none;
 }
