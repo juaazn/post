@@ -52,12 +52,11 @@ export const logOut = createAsyncThunk('@auth/logout', async (userData, ThunkApi
   }
 }) 
 
-export const uploadImage = createAsyncThunk('@auth/uploadimage', async (tokenUser, ThunkApi) => {
+export const uploadImage = createAsyncThunk('@auth/uploadimage', async ({formData, token}, ThunkApi) => {
   try {
-    const { token } = tokenUser
-
-    const response = await axios.post(`${BASE_URL_API}/cloudinary/image/`, {
+    const response = await axios.post(`${BASE_URL_API}/cloudinary/image/`, formData, {
       headers: {
+        'Content-Type': 'multipart/form-data',
         authorization: token
       }
     })
@@ -124,9 +123,22 @@ export const authSlice = createSlice({
         state.loading = false
         state.error = action.payload || '❌ error'
       })
-      .addCase(uploadImage.fulfilled, (state) => {
-        state.fulfilled = STATUS.FULFILLED
+      .addCase(uploadImage.fulfilled, (state, action) => {
+        state.status = STATUS.FULFILLED
+        if (state.user) {
+          state.user = action.payload
+          localStorage.setItem('user', JSON.stringify(state.user))
+        }
         state.loading = false
+      })
+      .addCase(uploadImage.pending, state => {
+        state.status = STATUS.PENDING
+        state.loading = true
+      })
+      .addCase(uploadImage.rejected, (state, action) => {
+        state.status = STATUS.REJECTED,
+        state.loading = false
+        state.error = action.payload.message
       })
   }
 })
