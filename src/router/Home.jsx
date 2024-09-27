@@ -1,12 +1,13 @@
 import Layout from '../layout/Laoyout'
 import Posts from '../components/post/Posts'
-import style from '../css/home/Home.module.css'
+import AddPost from '../components/post/AddPost'
 
 export default function Home () {
   return (
     <>
       <Layout>
         <Posts />
+        <AddPost />
       </Layout>
     </>
   )
