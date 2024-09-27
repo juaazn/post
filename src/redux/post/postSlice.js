@@ -20,6 +20,15 @@ export const getPost = createAsyncThunk('@post/get', async (ThunkApi) => {
   }
 })
 
+export const createPost = createAsyncThunk('@post/create' , async (ThunkApi) => {
+  try {
+    
+  } catch (error) {
+    const errorApi = error.response.data
+    return ThunkApi.rejectWithValue(errorApi)
+  }
+})
+
 export const postSlice = createSlice({
   name: 'post',
   initialState: initialState,
@@ -39,7 +48,7 @@ export const postSlice = createSlice({
       .addCase(getPost.rejected, (state, action) => {
         state.status = STATUS.REJECTED
         state.loading = false
-        state.error = action.payload || 'Please complete all fields on the form'
+        state.error = action.payload
       })
   }
 })
