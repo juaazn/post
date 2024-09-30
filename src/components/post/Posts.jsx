@@ -18,11 +18,22 @@ export default function Posts () {
       <SpinnerPost />
       <article>
         { 
-          post && post.map(items => (
+          post && post.slice().reverse().map((items) => (
             <section className={style.post} key={items._id}>
-              <h2>{items.title}</h2>
-              <p>{items.body}</p>
-              <img src={items.image.path} alt={items.title}/>
+              <span>
+                {
+                  items.user.profileImage 
+                    ? <img className={style.image_profile} src={items.user?.profileImage?.url} alt={`Profile photo of ${items.user.name}`} />
+                    : <img className={style.image_profile} src='/profile.webp' alt='Image example proflie' />
+                }
+              </span>
+              <div className={style.flex_content}>
+                <div className={style.content}>
+                  <h2>{items.user.name}</h2>             
+                  <p>{items.body}</p>
+                </div>
+                <img src={items.image?.path} alt={items.title}/>
+              </div>
             </section>
           )) 
         }
