@@ -4,6 +4,7 @@
   --font-buttom: 'Poppins Medium';
   --font-size-error: .8rem;
   --font-size-title-post: 1.2rem;
+  --font-size-body: 0.875rem;
 
   --color-background-post: #fefefe;
   --color-buttom-primary: rgb(229, 229, 229);
@@ -11,6 +12,7 @@
   --color-successful: green;
   --color-error: brown;
   --buttom-complement: rgb(29, 29, 29);
+  --color-separator-post: rgb(227, 227, 227);
 }
 
 @font-face {
