@@ -1,0 +1,50 @@
+.dialog {
+  min-width: 100svw;
+  min-height: 100svh;
+}
+
+.dialog::backdrop {
+  background: none;
+}
+
+.container_loading {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  color: var(--buttom-complement);
+}
+
+.container_error {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  color: var(--color-error);
+}
+
+.container_publish {
+  width: 100%;
+  min-height: 100svh;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+  gap: 5rem;
+  color: var(--color-successful);
+}
+
+.message {
+  margin: 0 auto;
+  margin: 2.4rem 0;
+  padding-left: .5rem;
+  width: 60%;
+  height: 2.3rem;
+  background-color: var(--color-background-post);
+  border-radius: .3rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
