@@ -83,3 +83,8 @@
   border-radius: .5rem;
   font-size: var(--font-buttom);
 }
+
+.error {
+  color: var(--color-error);
+  font-size: var(--font-size-error);
+}
