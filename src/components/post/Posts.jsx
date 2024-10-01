@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
 import SpinnerPost from './SpinnerPost'
 import style from '../../css/post/Posts.module.css'
+import Like from './Like'
 
 export default function Posts () {
   const dispatch = useDispatch()
@@ -33,6 +34,9 @@ export default function Posts () {
                   <p>{items.body}</p>
                 </div>
                 <img src={items.image?.path} alt={items.title}/>
+                <section className={style.container_interactions}>
+                  <Like />
+                </section>
               </div>
             </section>
           )) 
