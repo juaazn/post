@@ -9,6 +9,7 @@ const initialState = {
   published: null,
   error: null,
   status: null,
+  isLike: null
 }
 
 export const getPost = createAsyncThunk('@post/get', async (ThunkApi) => {
@@ -34,6 +35,37 @@ export const createPost = createAsyncThunk('@post/create' , async (data, ThunkAp
   } catch (error) {
     const errorApi = error.response.data
     return ThunkApi.rejectWithValue(errorApi)
+  }
+})
+
+export const likePost = createAsyncThunk('@post/like', async ({ postId, isLike, token }, ThunkApi) => {
+  try {
+    const response = await axios.post(`${BASE_URL_API}/post/like/${postId}`, { isLike },
+      {
+        headers: {
+          authorization: token,
+        },
+      }
+    )
+    return response.data;
+  } catch (error) {
+    const errorApi = error.response.data;
+    return ThunkApi.rejectWithValue(errorApi);
+  }
+})
+
+export const dislikePost = createAsyncThunk('@post/dislike', async ({ postId, token }, ThunkApi) => {
+  try {
+    const response = await axios.put(`${BASE_URL_API}/post/deleteLike/${postId}`, {},
+      {
+        headers: {
+        authorization: token,
+        },
+      })
+    return response.data;
+  } catch (error) {
+    const errorApi = error.response.data;
+    return ThunkApi.rejectWithValue(errorApi);
   }
 })
 
@@ -76,6 +108,28 @@ export const postSlice = createSlice({
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload
+      })
+      .addCase(likePost.fulfilled, (state, action) => {
+        state.status = STATUS.FULFILLED
+        const updatedPost = action.payload
+        state.post = state.post.map((post) =>
+          post._id === updatedPost._id ? updatedPost : post
+        )
+      })
+      .addCase(dislikePost.fulfilled, (state, action) => {
+        state.status = STATUS.FULFILLED
+        const updatedPost = action.payload
+        state.post = state.post.map((post) =>
+          post._id === updatedPost._id ? updatedPost : post
+        )
+      })
+      .addCase(likePost.rejected, (state, action) => {
+        state.status = STATUS.REJECTED;
+        state.error = action.payload;
+      })
+      .addCase(dislikePost.rejected, (state, action) => {
+        state.status = STATUS.REJECTED;
+        state.error = action.payload;
       })
   }
 })
