@@ -9,6 +9,7 @@ import Like from './Like'
 export default function Posts () {
   const dispatch = useDispatch()
   const { post } = useSelector(state => state.post)
+  const { user, token } = useSelector(state => state.auth)
 
   useEffect(() => {
     dispatch(getPost())
@@ -18,28 +19,32 @@ export default function Posts () {
     <main className={style.container_post}>
       <SpinnerPost />
       <article>
-        { 
-          post && post.slice().reverse().map((items) => (
-            <section className={style.post} key={items._id}>
-              <span>
-                {
-                  items.user.profileImage 
-                    ? <img className={style.image_profile} src={items.user?.profileImage?.url} alt={`Profile photo of ${items.user.name}`} />
-                    : <img className={style.image_profile} src='/profile.webp' alt='Image example proflie' />
-                }
-              </span>
-              <div className={style.flex_content}>
-                <div className={style.content}>
-                  <h2>{items.user.name}</h2>             
-                  <p>{items.body}</p>
+          {
+          post && post.slice().reverse().map((items) => {
+            const hasLiked = items.like.some((like) => like.user === user?._id)
+            
+            return (
+              <section className={style.post} key={items._id}>
+                <span>
+                  {
+                    items.user.profileImage 
+                      ? <img className={style.image_profile} src={items.user?.profileImage?.url} alt={`Profile photo of ${items.user.name}`} />
+                      : <img className={style.image_profile} src='/profile.webp' alt='Image example proflie' />
+                  }
+                </span>
+                <div className={style.flex_content}>
+                  <div className={style.content}>
+                    <h2>{items.user.name}</h2>             
+                    <p>{items.body}</p>
+                  </div>
+                  <img src={items.image?.path} alt={items.title}/>
+                  <section className={style.container_interactions}>
+                    { token ? <Like postId={items._id} statusLike={hasLiked} /> :null }
+                  </section>
                 </div>
-                <img src={items.image?.path} alt={items.title}/>
-                <section className={style.container_interactions}>
-                  <Like />
-                </section>
-              </div>
-            </section>
-          )) 
+              </section>
+            )
+          })
         }
       </article>
     </main>
