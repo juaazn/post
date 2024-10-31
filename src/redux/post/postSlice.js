@@ -5,6 +5,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 
 const initialState = {
   post: [],
+  postId: null,
   loading: false,
   published: null,
   error: null,
@@ -15,6 +16,16 @@ const initialState = {
 export const getPost = createAsyncThunk('@post/get', async (ThunkApi) => {
   try {
     const response = await axios.get(`${BASE_URL_API}/post/getAll`)
+    return response.data
+  } catch (error) {
+    const errorApi = error.response.data
+    return ThunkApi.rejectWithValue(errorApi)
+  }
+})
+
+export const getPostId = createAsyncThunk('@post/getId', async (postId, ThunkApi) => {
+  try {
+    const response = await axios.get(`${BASE_URL_API}/post/id/${postId}`)
     return response.data
   } catch (error) {
     const errorApi = error.response.data
@@ -90,6 +101,21 @@ export const postSlice = createSlice({
         state.error = null
       })
       .addCase(getPost.rejected, (state, action) => {
+        state.status = STATUS.REJECTED
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(getPostId.fulfilled , (state, action) => {
+        state.status = STATUS.FULFILLED
+        state.post = action.payload
+        state.loading = false
+      })
+      .addCase(getPostId.pending , (state, action) => {
+        state.status = STATUS.PENDING
+        state.loading = true
+        state.error = null
+      })
+      .addCase(getPostId.rejected , (state, action) => {
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload
