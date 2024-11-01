@@ -1,0 +1,12 @@
+.dialog {
+  max-width: 100svw;
+  max-height: 100svh;
+}
+
+.container {
+  width: 100svw;
+  height: 100svh;
+  background-color: var(--color-background-post);
+  box-sizing: border-box;
+  padding: 2rem;
+}
