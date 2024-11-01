@@ -107,7 +107,7 @@ export const postSlice = createSlice({
       })
       .addCase(getPostId.fulfilled , (state, action) => {
         state.status = STATUS.FULFILLED
-        state.post = action.payload
+        state.postId = action.payload
         state.loading = false
       })
       .addCase(getPostId.pending , (state, action) => {
