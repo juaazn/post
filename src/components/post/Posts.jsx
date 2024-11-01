@@ -38,7 +38,7 @@ export default function Posts () {
                     <h2>{items.user.name}</h2>             
                     <p>{items.body}</p>
                   </div>
-                  <img src={items.image?.path} alt={items.title}/>
+                  <img className={style.image_post} src={items.image?.path} alt={items.title}/>
                   <section className={style.container_interactions}>
                     { token ? <Like postId={items._id} statusLike={hasLiked} /> :null }
                     { token ? <AddComments idPost={items._id} /> : null }
