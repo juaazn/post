@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 
 export default function AddComments ({ idPost }) {
   const { secondOpenDialog, handleSecondOpenDialog } = useOpenDialog()
-  const { user } = useSelector(state => state.auth)
+  const { user, token } = useSelector(state => state.auth)
   const { postId } = useSelector(state => state.post)
   const textarea = useRef('')
   const [ text, setText ] = useState({text: ''})
@@ -25,6 +25,10 @@ export default function AddComments ({ idPost }) {
     textarea.current.style.height = `${scHeight}px`
 
     setText({ ...text, [event.target.name]: event.target.value })
+  }
+
+  const handleSubmit = () => {
+    dispatch({ idPost, text, token })
   }
 
   return (
@@ -57,8 +61,11 @@ export default function AddComments ({ idPost }) {
                 ? <img className={style.image_profile} src={user?.profileImage?.url} alt='User profile' />
                 : <img className={style.image_profile} src='/profile.webp' alt='User profile'/>
             }
-            <textarea ref={textarea} onKeyUpCapture={handleTextAreaHeightChange} name="comment" className={style.add_comment} placeholder={`Replay to ${user?.name}`}></textarea>
+            <textarea ref={textarea} onKeyUpCapture={handleTextAreaHeightChange} name="comment" className={style.add_comment} placeholder={`Replay to ${user?.name}`} maxlength="100"></textarea>
           </section>
+          <div className={style.container_submit}>
+            <button onClick={handleSubmit} className={style.submit} type='submit'>Submit</button>
+          </div>
         </article>
       </dialog>
     </>
