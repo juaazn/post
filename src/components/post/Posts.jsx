@@ -5,6 +5,7 @@ import { useEffect } from 'react'
 import SpinnerPost from './SpinnerPost'
 import style from '../../css/post/Posts.module.css'
 import Like from './Like'
+import AddComments from './AddComments'
 
 export default function Posts () {
   const dispatch = useDispatch()
@@ -40,6 +41,7 @@ export default function Posts () {
                   <img src={items.image?.path} alt={items.title}/>
                   <section className={style.container_interactions}>
                     { token ? <Like postId={items._id} statusLike={hasLiked} /> :null }
+                    { token ? <AddComments idPost={items._id} /> : null }
                   </section>
                 </div>
               </section>
