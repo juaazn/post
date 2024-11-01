@@ -49,6 +49,21 @@ export const createPost = createAsyncThunk('@post/create' , async (data, ThunkAp
   }
 })
 
+export const createComments = createAsyncThunk('@post/createComments', async (data, ThunkApi) => {
+  try {
+    const { idPost, body, token } = data
+    const response = await axios.post(`${BASE_URL_API}/post/create/${idPost}`, body, {
+      headers: {
+        authorization: token
+      }
+    })
+    return response.data
+  } catch (error) {
+    const errorApi = error.response.data
+    return ThunkApi.rejectWithValue(errorApi)
+  }
+})
+
 export const likePost = createAsyncThunk('@post/like', async ({ postId, isLike, token }, ThunkApi) => {
   try {
     const response = await axios.post(`${BASE_URL_API}/post/like/${postId}`, { isLike },
