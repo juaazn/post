@@ -2,7 +2,7 @@ import style from '../../css/post/addComments.module.css'
 import useOpenDialog from '../../hooks/useOpenDialog'
 import ButtonClose from '../Header/ButtonClose'
 import { useState, useRef } from 'react'
-import { getPostId } from '../../redux/post/postSlice'
+import { getPostId, createComments } from '../../redux/post/postSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
 
@@ -11,7 +11,7 @@ export default function AddComments ({ idPost }) {
   const { user, token } = useSelector(state => state.auth)
   const { postId } = useSelector(state => state.post)
   const textarea = useRef('')
-  const [ text, setText ] = useState({text: ''})
+  const [ body, setBody ] = useState({body: ''})
   const dispatch = useDispatch()
 
   const handleOnClick = () => {
@@ -24,11 +24,11 @@ export default function AddComments ({ idPost }) {
     let scHeight = event.target.scrollHeight
     textarea.current.style.height = `${scHeight}px`
 
-    setText({ ...text, [event.target.name]: event.target.value })
+    setBody({ ...body, [event.target.name]: event.target.value })
   }
 
   const handleSubmit = () => {
-    dispatch({ idPost, text, token })
+    dispatch(createComments({ idPost: idPost, body: body, token: token }))
   }
 
   return (
@@ -61,7 +61,7 @@ export default function AddComments ({ idPost }) {
                 ? <img className={style.image_profile} src={user?.profileImage?.url} alt='User profile' />
                 : <img className={style.image_profile} src='/profile.webp' alt='User profile'/>
             }
-            <textarea ref={textarea} onKeyUpCapture={handleTextAreaHeightChange} name="comment" className={style.add_comment} placeholder={`Replay to ${user?.name}`} maxlength="100"></textarea>
+            <textarea ref={textarea} onKeyUpCapture={handleTextAreaHeightChange} name="comment" className={style.add_comment} placeholder={`Replay to ${user?.name}`} minLength='0' maxLength="100"></textarea>
           </section>
           <div className={style.container_submit}>
             <button onClick={handleSubmit} className={style.submit} type='submit'>Submit</button>

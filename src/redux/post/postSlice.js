@@ -54,6 +54,7 @@ export const createComments = createAsyncThunk('@post/createComments', async (da
     const { idPost, body, token } = data
     const response = await axios.post(`${BASE_URL_API}/post/create/${idPost}`, body, {
       headers: {
+        'Content-Type': 'application/json',
         authorization: token
       }
     })
