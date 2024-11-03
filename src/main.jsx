@@ -7,6 +7,7 @@ import Home from './router/Home'
 import Profile from './router/Profile'
 import Login from './router/Login.jsx'
 import Register from './router/Register.jsx'
+import Post from './router/Post.jsx'
 import './layout.css'
 
 const router = createBrowserRouter([
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
   {
     path: '/resgister',
     element: <Register />
+  },
+  {
+    path: '/post/:user/:_id',
+    element: <Post />
   }
 ], { basename: '/' })
 

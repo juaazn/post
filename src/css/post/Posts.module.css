@@ -1,7 +1,6 @@
 .container_post {
   height: auto;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: .2rem;
@@ -9,12 +8,17 @@
 
 .post {
   width: 100%;
-  min-height: auto;
-  padding: 1.5rem 1.8rem 1.8rem 1.5rem;
+  height: auto;
+  padding: 1.5rem 1.8rem .8rem 1.5rem;
   display: flex;
   gap: .8rem;
   box-sizing: border-box;
   border-bottom: .050rem solid var(--color-separator-post);
+  transition: background-color 5ms;
+}
+
+.post:hover {
+  background-color: var(--color-background-hover-post);
 }
 
 .hr {
@@ -31,7 +35,7 @@
 .flex_content {
   display: flex;
   flex-direction: column;
-  gap: .5rem;
+  gap: .8rem;
 }
 
 .image_post {
@@ -60,4 +64,19 @@
   display: flex;
   justify-content: flex-start;
   align-items: center;
+}
+
+
+
+
+@media screen and (min-width: 1200px)  {
+.container_post {
+  width: 35svw;
+  height: auto;
+  margin: 0 auto;
+}
+
+.post {
+  padding: 1.5rem 1.8rem .8rem 0;
+} 
 }

@@ -52,3 +52,10 @@
   background-color: white;
   border-radius: .5rem;
 }
+
+@media screen and (min-width: 1200px) {
+  .container {
+    width: 35svw;
+    height: auto;
+  }
+}

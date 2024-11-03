@@ -29,3 +29,10 @@
   color: var(--color-buttom-primary);
   font-family: var(--font-buttom);
 }
+
+@media screen and (min-width: 1200px)  { 
+  .container {
+    width: 60%;
+    margin: 0 auto;
+  }
+}

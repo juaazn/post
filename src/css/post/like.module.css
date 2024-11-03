@@ -1,6 +1,7 @@
 .like {
   width: 2rem;
   height: 2rem;
+  transition: stroke background-color 5ms;
 
   & svg {
     width: 1.2rem;
