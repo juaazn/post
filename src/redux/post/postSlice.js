@@ -6,6 +6,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit'
 const initialState = {
   post: [],
   postId: null,
+  comment: null,
   loading: false,
   published: null,
   error: null,
@@ -36,7 +37,7 @@ export const getPostId = createAsyncThunk('@post/getId', async (postId, ThunkApi
 export const createPost = createAsyncThunk('@post/create' , async (data, ThunkApi) => {
   try {
     const { body, token } = data
-    const response = await axios.post(`${BASE_URL_API}/post/create/`, body, {
+    const response = await axios.post(`${BASE_URL_API}/post/create/`, { body }, {
       headers: {
         'Content-Type': 'multipart/form-data',
         authorization: token
@@ -52,7 +53,7 @@ export const createPost = createAsyncThunk('@post/create' , async (data, ThunkAp
 export const createComments = createAsyncThunk('@post/createComments', async (data, ThunkApi) => {
   try {
     const { idPost, body, token } = data
-    const response = await axios.post(`${BASE_URL_API}/post/create/${idPost}`, body, {
+    const response = await axios.post(`${BASE_URL_API}/comments/create/${idPost}`, { body }, {
       headers: {
         'Content-Type': 'application/json',
         authorization: token
@@ -147,6 +148,21 @@ export const postSlice = createSlice({
         state.error = null
       })
       .addCase(createPost.rejected, (state, action) => {
+        state.status = STATUS.REJECTED
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(createComments.fulfilled, (state, action) => {
+        state.status = STATUS.FULFILLED
+        state.comment = action.payload
+        state.loading = false
+      })
+      .addCase(createComments.pending, (state) => {
+        state.status = STATUS.PENDING
+        state.loading = true
+        state.error = null
+      })
+      .addCase(createComments.rejected, (state, action) => {
         state.status = STATUS.REJECTED
         state.loading = false
         state.error = action.payload
