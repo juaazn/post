@@ -5,13 +5,12 @@ import { useState, useRef } from 'react'
 import { getPostId, createComments } from '../../redux/post/postSlice'
 import { useSelector, useDispatch } from 'react-redux'
 
-
 export default function AddComments ({ idPost }) {
   const { secondOpenDialog, handleSecondOpenDialog } = useOpenDialog()
   const { user, token } = useSelector(state => state.auth)
   const { postId } = useSelector(state => state.post)
   const textarea = useRef('')
-  const [ body, setBody ] = useState({body: ''})
+  const [ text, setText ] = useState('')
   const dispatch = useDispatch()
 
   const handleOnClick = () => {
@@ -24,11 +23,14 @@ export default function AddComments ({ idPost }) {
     let scHeight = event.target.scrollHeight
     textarea.current.style.height = `${scHeight}px`
 
-    setBody({ ...body, [event.target.name]: event.target.value })
+    setText(event.target.value)
   }
 
-  const handleSubmit = () => {
-    dispatch(createComments({ idPost: idPost, body: body, token: token }))
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    dispatch(createComments({ idPost: idPost, body: text, token: token }))
+    setText('')
+    textarea.current.style.height = 'auto'
   }
 
   return (
@@ -52,20 +54,22 @@ export default function AddComments ({ idPost }) {
               { postId?.image ? <img className={style.image_post} src={postId?.image?.path} /> : null }
             </div>
           </section>
-          <section className={style.add_comments}>
-            <picture className={style.replay_comment}>
-              <svg xmlns="http://www.w3.org/2000/svg" width="26" height="33" fill="none" className={style.svg_comment}><path fill="#000" d="M2 1a1 1 0 0 0-2 0h2Zm24 26-10-5.8v11.6L26 27ZM0 1v18h2V1H0Zm9 27h8v-2H9v2Zm-9-9c0 5 4 9 9 9v-2a7 7 0 0 1-7-7H0Z"/></svg>
-            </picture>
-            {
-              user?.profileImage
-                ? <img className={style.image_profile} src={user?.profileImage?.url} alt='User profile' />
-                : <img className={style.image_profile} src='/profile.webp' alt='User profile'/>
-            }
-            <textarea ref={textarea} onKeyUpCapture={handleTextAreaHeightChange} name="comment" className={style.add_comment} placeholder={`Replay to ${user?.name}`} minLength='0' maxLength="100"></textarea>
-          </section>
-          <div className={style.container_submit}>
-            <button onClick={handleSubmit} className={style.submit} type='submit'>Submit</button>
-          </div>
+          <form className={style.add_comments} onSubmit={handleSubmit}>
+            <div className={style.flex}>
+              <picture className={style.replay_comment}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="26" height="33" fill="none" className={style.svg_comment}><path fill="#000" d="M2 1a1 1 0 0 0-2 0h2Zm24 26-10-5.8v11.6L26 27ZM0 1v18h2V1H0Zm9 27h8v-2H9v2Zm-9-9c0 5 4 9 9 9v-2a7 7 0 0 1-7-7H0Z"/></svg>
+              </picture>
+              {
+                user?.profileImage
+                  ? <img className={style.image_profile} src={user?.profileImage?.url} alt='User profile' />
+                  : <img className={style.image_profile} src='/profile.webp' alt='User profile'/>
+              }
+              <textarea ref={textarea} onChange={handleTextAreaHeightChange} value={text} name="comment" className={style.textarea} placeholder={`Replay to ${user?.name}`} minLength='0' maxLength="100"></textarea>
+            </div>
+            <div className={style.container_submit}>
+              <button className={style.submit} type='submit'>Submit</button>
+            </div>
+          </form>
         </article>
       </dialog>
     </>
