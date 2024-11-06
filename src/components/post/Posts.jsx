@@ -2,7 +2,7 @@ import { getPost } from '../../redux/post/postSlice'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import SpinnerPost from './SpinnerPost'
 import style from '../../css/post/Posts.module.css'
 import Like from './Like'
@@ -12,6 +12,11 @@ export default function Posts () {
   const dispatch = useDispatch()
   const { post } = useSelector(state => state.post)
   const { user, token } = useSelector(state => state.auth)
+  const navigate = useNavigate()
+
+  const handleRedirect = (id, userName) => {
+    navigate(`/post/${userName}/${id}`);
+  }
 
   useEffect(() => {
     dispatch(getPost())
@@ -26,8 +31,7 @@ export default function Posts () {
             const hasLiked = items.like.some((like) => like.user === user?._id)
             
             return (
-              <Link to={`/post/${items.user.name}/${items._id}`} key={items._id}>
-                <section className={style.post}>
+                <section key={items._id} className={style.post} onClick={() => {handleRedirect(items._id, items.user.name)}}>
                   <span>
                     {
                       items.user.profileImage 
@@ -41,13 +45,13 @@ export default function Posts () {
                       <p>{items.body}</p>
                     </div>
                     <img className={style.image_post} src={items.image?.path} alt={items.title}/>
-                    <section className={style.container_interactions}>
+                    
+                    <section className={style.container_interactions} onClick={(e) => e.stopPropagation()}>
                       { token ? <Like postId={items._id} statusLike={hasLiked} /> :null }
                       { token ? <AddComments idPost={items._id} /> : null }
                     </section>
                   </div>
                 </section>
-              </Link>
             )
           })
         }
