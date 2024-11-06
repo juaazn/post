@@ -13,7 +13,9 @@ export default function AddComments ({ idPost }) {
   const [ text, setText ] = useState('')
   const dispatch = useDispatch()
 
-  const handleOnClick = () => {
+  const handleOnClick = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     handleSecondOpenDialog()
     dispatch(getPostId(idPost))
   }

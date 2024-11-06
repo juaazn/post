@@ -13,12 +13,16 @@ export default function Like({ postId, statusLike }) {
     setHasLiked(statusLike);
   }, [statusLike])
 
-  const handleLike = () => {
+  const handleLike = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     dispatch(likePost({ postId, isLike: true, token }))
     setHasLiked(true)
   }
 
-  const handleDislike = () => {
+  const handleDislike = (event) => {
+    event.preventDefault()
+    event.stopPropagation()
     dispatch(dislikePost({ postId, token }))
     setHasLiked(false)
   }
