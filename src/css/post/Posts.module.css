@@ -1,6 +1,7 @@
 .container_post {
   height: auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: .2rem;
@@ -15,14 +16,11 @@
   box-sizing: border-box;
   border-bottom: .050rem solid var(--color-separator-post);
   transition: background-color 5ms;
+  cursor: pointer;
 }
 
 .post:hover {
   background-color: var(--color-background-hover-post);
-}
-
-.hr {
-  margin: 1rem 0;
 }
 
 .image_profile {
@@ -66,8 +64,27 @@
   align-items: center;
 }
 
+.comment {
+  width: 100%;
+  height: auto;
+  padding: .8rem 1.5rem;
+  box-sizing: border-box;
+  border-bottom: .050rem solid var(--color-separator-post);
 
+  & h2 {
+    font-family: var(--font-buttom);
+    font-size: var(--font-size-body);
+  }
 
+  & p {
+    font-size: var(--font-size-body);
+  }
+}
+
+.content_comment {
+  display: flex;
+  gap: .8rem;
+}
 
 @media screen and (min-width: 1200px)  {
 .container_post {
