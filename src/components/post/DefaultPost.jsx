@@ -2,9 +2,9 @@ import style from '../../css/post/Posts.module.css'
 import Like from './Like'
 import AddComments from './AddComments'
 
-export default function DefaultPost ({ token, _id, idUser, imageProfile = null, name, body, imagePost = null ,like = [] }) {
+export default function DefaultPost ({ token, _id, idUser, imageProfile = null, name, body, imagePost = null , like = [], comments = [] }) {
 
-  const hasLiked = like.some((setLike) => setLike.user === idUserx)
+  const hasLiked = like.some((setLike) => setLike.user === idUser)
 
   return (
     <main className={style.container_post}>
@@ -32,6 +32,23 @@ export default function DefaultPost ({ token, _id, idUser, imageProfile = null, 
           </section>
         </div>
       </section>
+      {
+        comments && comments.map(comment => (
+          <section className={style.comment} key={comment?._id}>
+            <div className={style.content_comment}>
+              {
+                comment?.userId?.profileImage
+                  ? <img className={style.image_profile} src={comment?.userId?.profileImage?.url} alt='Image Profile'/>
+                  : <img className={style.image_profile} src="/profile.webp" alt="Image Profile" />
+              }
+              <div>
+                <h2>{comment?.userId?.name}</h2>
+                <p>{comment?.body}</p>
+              </div>
+            </div>
+          </section>
+      ))
+      }
     </main>
   )
 }
