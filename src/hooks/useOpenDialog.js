@@ -8,17 +8,25 @@ export default function useOpenDialog () {
   const secondOpenDialog = useRef(null)
 
   const handleOpenDialog = () => {
-    open 
-      ? openDialog.current.close() 
-      : openDialog.current.showModal()
+    if (open) {
+      openDialog.current.close();
+      document.body.classList.remove('no_scroll')
+    } else {
+      openDialog.current.showModal()
+      document.body.classList.add('no_scroll')
+    }
     setOpen(!open)
   }
 
   const handleSecondOpenDialog = () => {
-    secondOpen
-      ? secondOpenDialog.current.close() 
-      : secondOpenDialog.current.showModal()
-      setSecondOpen(!secondOpen)
+    if (secondOpen) {
+      secondOpenDialog.current.close() 
+      document.body.classList.remove('no_scroll')
+    } else {
+      secondOpenDialog.current.showModal()
+      document.body.classList.add('no_scroll')
+    }
+    setSecondOpen(!secondOpen)
   }
 
   return {
