@@ -1,7 +1,6 @@
 .dialog {
   min-width: 100svw;
   min-height: 100svh;
-  position: relative;
 }
 
 .open_dialog {
@@ -12,13 +11,12 @@
 }
 
 .nav {
-  width: 14rem;
-  height: 100%;
+  width: 17rem;
+  height: 100svh;
   background-color: var(--color-background-post);
-  position: absolute;
-  width: 13rem;
   margin: 0;
   border: none;
+  box-sizing: border-box;
   padding: 2rem;
   display: flex;
   flex-direction: column;
@@ -63,6 +61,14 @@
   height: 2.5rem;
 }
 
+.container_logout {
+  width: 12rem;
+  height: 2rem;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+}
+
 .button_logout {
   width: 12rem;
   height: 2rem;
@@ -70,6 +76,7 @@
   background-color: var(--buttom-complement);
   border-radius: .5rem;
   font-size: var(--font-buttom);
+
   margin: 1rem 0;
 }
 
