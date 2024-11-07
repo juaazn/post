@@ -37,7 +37,7 @@ export const getPostId = createAsyncThunk('@post/getId', async (postId, ThunkApi
 export const createPost = createAsyncThunk('@post/create' , async (data, ThunkApi) => {
   try {
     const { body, token } = data
-    const response = await axios.post(`${BASE_URL_API}/post/create/`, { body }, {
+    const response = await axios.post(`${BASE_URL_API}/post/create/`, body , {
       headers: {
         'Content-Type': 'multipart/form-data',
         authorization: token
