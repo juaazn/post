@@ -57,5 +57,7 @@
   .container {
     width: 35svw;
     height: auto;
+    flex-direction: column;
+    margin: 0 auto;
   }
 }

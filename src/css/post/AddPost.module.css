@@ -88,3 +88,18 @@
   color: var(--color-error);
   font-size: var(--font-size-error);
 }
+
+@media screen and (min-width: 1200px)  { 
+  .button {
+    right: 19.5svw;
+    bottom: 5svh;
+    width: 3.8rem;
+    height: 3.8rem;
+    margin: 0 auto;
+  }
+
+  .container_dialog {
+    margin: 0 auto;
+    width: 38svw;
+  }
+}
