@@ -25,6 +25,7 @@ export default function Post () {
         body={postId?.body}
         imagePost={postId?.image?.path}
         like={postId?.like}
+        comments={postId?.comments}
       />
     </Layout>
   )
