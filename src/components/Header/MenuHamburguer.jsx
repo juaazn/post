@@ -77,7 +77,9 @@ export default function MenuHamburguer () {
             </div>
           </dialog>
           <p>Hey, { user ? user.name : "where is the name🙄" }</p>
-          <button className={style.button_logout} type='button' onClick={() => handleLogOut({_id: user._id, token: token })}>Log out</button>
+          <div className={style.container_logout}>
+            <button className={style.button_logout} type='button' onClick={() => handleLogOut({_id: user._id, token: token })}>Log out</button>
+          </div>
         </nav>
       </div>
     </dialog>
