@@ -101,3 +101,7 @@ dialog {
   margin: 0;
   padding: 0;
 }
+
+.no_scroll {
+  overflow: hidden;
+}
