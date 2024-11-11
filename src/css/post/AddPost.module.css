@@ -89,7 +89,22 @@
   font-size: var(--font-size-error);
 }
 
-@media screen and (min-width: 1200px)  { 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .button {
+    right: 6svw;
+    bottom: 5svh;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin: 0 auto;
+  }
+
+  .container_dialog {
+    margin: 0 auto;
+    width: 38svw;
+  }
+}
+
+@media screen and (min-width: 1024px)  { 
   .button {
     right: 19.5svw;
     bottom: 5svh;
