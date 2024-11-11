@@ -8,9 +8,11 @@ export default function () {
 
   return (
     <header className={styles.container}>
-      <Link className={styles.logo} to='/'>Post</Link>
-      { token && <MenuHamburguer /> }
-      { !token && <Link className={styles.buttom_login} to='/login'>Login</Link> }
+      <div className={styles.fixed}>
+        <Link className={styles.logo} to='/'>Post</Link>
+        { token && <MenuHamburguer /> }
+        { !token && <Link className={styles.buttom_login} to='/login'>Login</Link> }
+      </div>
     </header>
   )
 }

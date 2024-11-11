@@ -110,7 +110,7 @@
 }
 
 .container_dialog_photo::backdrop {
-  background-color: rgba(95, 158, 160, 0.962);
+  backdrop-filter: blur(.080rem);
 }
 
 .flex_photo {
@@ -213,3 +213,14 @@
   font-size: var(--font-size-error);
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .nav {
+    width: 19rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .nav {
+    width: 27.5rem;
+  }
+}
