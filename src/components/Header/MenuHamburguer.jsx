@@ -65,7 +65,7 @@ export default function MenuHamburguer () {
                     : <img className={style.image_selected} src='/profile.webp' alt='Image example proflie' />
                 }
                 <form className={style.form_upload_image} onSubmit={submitUploadImage}>
-                  <input className={style.input_file} type='file' id='picture' onChange={handleImageChange}/>
+                  <input className={style.input_file} type='file' id='picture' accept="image/*" onChange={handleImageChange}/>
                   <input className={style.submit} type="submit" value='Submit' />
                   <span className={style.error}>
                     { error ? <p>{ error || 'Error upload image'}</p> : null }
